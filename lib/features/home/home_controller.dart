@@ -1,5 +1,4 @@
-// lib/features/home/home_controller.dart
-
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../data/models/flashcard.dart';
 import '../../data/repositories/flashcard_repository.dart';
@@ -13,10 +12,19 @@ class HomeController extends GetxController {
   final RxBool isFlipped = false.obs;
   final RxBool isLoading = true.obs;
 
+  late PageController pageController;
+
   @override
   void onInit() {
     super.onInit();
+    pageController = PageController(initialPage: 0);
     loadCards();
+  }
+
+  @override
+  void onClose() {
+    pageController.dispose();
+    super.onClose();
   }
 
   Future<void> loadCards() async {
@@ -26,22 +34,35 @@ class HomeController extends GetxController {
       cards.assignAll(loadedCards);
       currentIndex.value = 0;
       isFlipped.value = false;
+      // Reset page controller if needed
+      if (pageController.hasClients) {
+        pageController.jumpToPage(0);
+      }
     } finally {
       isLoading.value = false;
     }
   }
 
+  void onPageChanged(int index) {
+    currentIndex.value = index;
+    isFlipped.value = false;
+  }
+
   void nextCard() {
     if (currentIndex.value < cards.length - 1) {
-      currentIndex.value++;
-      isFlipped.value = false;
+      pageController.nextPage(
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.easeInOut,
+      );
     }
   }
 
   void previousCard() {
     if (currentIndex.value > 0) {
-      currentIndex.value--;
-      isFlipped.value = false;
+      pageController.previousPage(
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.easeInOut,
+      );
     }
   }
 

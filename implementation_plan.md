@@ -61,6 +61,11 @@ flutter:
   assets: []
 ```
 
+#### Phase 7: UI/UX Enhancement [NEW]
+- Implement sliding card navigation with `PageView`.
+- Enhance flashcard visual design (gradients, shadows, premium typography).
+- Synchronize navigation buttons with the sliding gestures.
+
 ### Verification Commands
 
 1. `flutter doctor` — All checks must pass (green ✓) for target platforms
