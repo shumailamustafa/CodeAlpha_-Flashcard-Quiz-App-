@@ -65,7 +65,7 @@ class HomeScreen extends GetView<HomeController> {
                   color: Colors.grey,
                 ),
               ),
-              const SizedBox(height: 32),
+              const SizedBox(height: 16),
 
               // The Flip Card
               Expanded(
@@ -77,7 +77,7 @@ class HomeScreen extends GetView<HomeController> {
                 ),
               ),
 
-              const SizedBox(height: 48),
+              const SizedBox(height: 24),
 
               // Navigation Buttons
               Row(
@@ -97,7 +97,7 @@ class HomeScreen extends GetView<HomeController> {
                   ),
                 ],
               ),
-              const SizedBox(height: 24),
+              const SizedBox(height: 16),
             ],
           ),
         );
@@ -107,11 +107,9 @@ class HomeScreen extends GetView<HomeController> {
 
   Widget _buildCardFace(String text, String label) {
     return Card(
-      child: Container(
-        padding: const EdgeInsets.all(32),
-        alignment: Alignment.center,
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
               label.toUpperCase(),
@@ -122,13 +120,19 @@ class HomeScreen extends GetView<HomeController> {
                 color: Colors.blue,
               ),
             ),
-            const SizedBox(height: 24),
-            Text(
-              text,
-              textAlign: TextAlign.center,
-              style: const TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.w500,
+            const SizedBox(height: 16),
+            Expanded(
+              child: Center(
+                child: SingleChildScrollView(
+                  child: Text(
+                    text,
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ),
               ),
             ),
           ],

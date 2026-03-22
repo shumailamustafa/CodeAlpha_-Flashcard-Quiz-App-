@@ -15,6 +15,13 @@ class ManageScreen extends GetView<ManageController> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Manage Deck'),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.file_upload_outlined),
+            tooltip: 'Import CSV',
+            onPressed: () => controller.importFromCsv(),
+          ),
+        ],
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () => CardFormSheet.show(),

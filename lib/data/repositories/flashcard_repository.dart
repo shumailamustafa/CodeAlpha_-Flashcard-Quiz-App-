@@ -9,6 +9,7 @@ abstract class FlashcardRepository {
   void addCard(String question, String answer);
   void updateCard(String id, String question, String answer);
   void deleteCard(String id);
+  void addMultipleCards(List<Map<String, String>> cardData);
 }
 
 class FlashcardRepositoryImpl implements FlashcardRepository {
@@ -19,7 +20,33 @@ class FlashcardRepositoryImpl implements FlashcardRepository {
 
   @override
   List<Flashcard> getAllCards() {
-    return _storageService.readAll();
+    final cards = _storageService.readAll();
+    if (cards.isEmpty) {
+      // Seed with sample data for first-time use
+      final sampleCards = [
+        Flashcard(
+          id: _uuid.v4(),
+          question: 'What is the capital of France?',
+          answer: 'Paris',
+          createdAt: DateTime.now(),
+        ),
+        Flashcard(
+          id: _uuid.v4(),
+          question: 'What is 15 + 27?',
+          answer: '42',
+          createdAt: DateTime.now(),
+        ),
+        Flashcard(
+          id: _uuid.v4(),
+          question: 'How do you flip a card in FlashMind?',
+          answer: 'Just tap on the card face!',
+          createdAt: DateTime.now(),
+        ),
+      ];
+      _storageService.writeAll(sampleCards);
+      return sampleCards;
+    }
+    return cards;
   }
 
   @override
@@ -52,6 +79,22 @@ class FlashcardRepositoryImpl implements FlashcardRepository {
   void deleteCard(String id) {
     final cards = _storageService.readAll();
     cards.removeWhere((card) => card.id == id);
+    _storageService.writeAll(cards);
+  }
+
+  @override
+  void addMultipleCards(List<Map<String, String>> cardData) {
+    final cards = _storageService.readAll();
+    for (var data in cardData) {
+      if (data.containsKey('question') && data.containsKey('answer')) {
+        cards.add(Flashcard(
+          id: _uuid.v4(),
+          question: data['question']!,
+          answer: data['answer']!,
+          createdAt: DateTime.now(),
+        ));
+      }
+    }
     _storageService.writeAll(cards);
   }
 }

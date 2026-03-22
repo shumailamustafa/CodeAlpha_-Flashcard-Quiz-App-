@@ -21,6 +21,8 @@ class MockFlashcardRepository extends FlashcardRepository {
   void updateCard(String id, String question, String answer) {}
   @override
   void deleteCard(String id) {}
+  @override
+  void addMultipleCards(List<Map<String, String>> cardData) {}
 }
 
 void main() {

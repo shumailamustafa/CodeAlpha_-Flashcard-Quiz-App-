@@ -1,9 +1,13 @@
 // lib/features/manage/manage_controller.dart
 
+import 'dart:convert';
+import 'dart:io';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../data/repositories/flashcard_repository.dart';
-
+import 'package:file_picker/file_picker.dart';
+import 'package:csv/csv.dart';
 import '../../data/models/flashcard.dart';
+import '../../data/repositories/flashcard_repository.dart';
 import '../home/home_controller.dart';
 
 class ManageController extends GetxController {
@@ -71,5 +75,56 @@ class ManageController extends GetxController {
     if (Get.isRegistered<HomeController>()) {
       Get.find<HomeController>().loadCards();
     }
+  }
+
+  Future<void> importFromCsv() async {
+    try {
+      final result = await FilePicker.platform.pickFiles(
+        type: FileType.custom,
+        allowedExtensions: ['csv'],
+      );
+
+      if (result == null || result.files.single.path == null) return;
+
+      final file = File(result.files.single.path!);
+      final input = file.openRead();
+      final fields = await input
+          .transform(utf8.decoder)
+          .transform(Csv().decoder)
+          .toList();
+
+      final List<Map<String, String>> newCards = [];
+      for (var row in fields) {
+        if (row.length >= 2) {
+          newCards.add({
+            'question': row[0].toString().trim(),
+            'answer': row[1].toString().trim(),
+          });
+        }
+      }
+
+      if (newCards.isNotEmpty) {
+        repository.addMultipleCards(newCards);
+        loadCards();
+        _syncHome();
+        Get.snackbar(
+          'Success',
+          'Imported ${newCards.length} cards successfully!',
+          snackPosition: SnackPosition.BOTTOM,
+        );
+      }
+    } catch (e) {
+      Get.snackbar(
+        'Error',
+        'Failed to import CSV: $e',
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.red.withAlpha(51),
+        colorText: Colors.red,
+      );
+    }
+  }
+
+  void updateSearchQuery(String query) {
+    searchQuery.value = query; // Added this line to actually update the query
   }
 }
