@@ -8,16 +8,16 @@ import '../bindings/manage_binding.dart';
 import 'app_routes.dart';
 
 abstract class AppPages {
-  static const INITIAL = Routes.HOME;
+  static const initial = Routes.home;
 
   static final routes = [
     GetPage(
-      name: Routes.HOME,
+      name: Routes.home,
       page: () => const HomeScreen(),
       binding: HomeBinding(),
     ),
     GetPage(
-      name: Routes.MANAGE,
+      name: Routes.manage,
       page: () => const ManageScreen(),
       binding: ManageBinding(),
     ),

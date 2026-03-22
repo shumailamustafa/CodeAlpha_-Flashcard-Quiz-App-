@@ -14,7 +14,7 @@ class FlashMindApp extends StatelessWidget {
       title: 'FlashMind',
       debugShowCheckedModeBanner: false,
       theme: AppTheme.lightTheme,
-      initialRoute: AppPages.INITIAL,
+      initialRoute: AppPages.initial,
       getPages: AppPages.routes,
       defaultTransition: Transition.fadeIn,
     );

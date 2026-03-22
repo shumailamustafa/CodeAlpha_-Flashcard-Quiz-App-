@@ -74,7 +74,7 @@ abstract class AppTheme {
       ),
 
       // Card
-      cardTheme: CardTheme(
+      cardTheme: CardThemeData(
         color: cardSurface,
         elevation: 2,
         shape: RoundedRectangleBorder(
