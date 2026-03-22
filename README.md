@@ -1,4 +1,4 @@
-# <img src="./assets/images/app_icon.png" width="40" height="40"> FlashMind — Learn Faster, Retain Longer
+# <img src="./assets/images/app_icon.png" width="40" height="40" style="border-radius: 50%; vertical-align: middle;"> FlashMind — Learn Faster, Retain Longer
 
 [![Flutter](https://img.shields.io/badge/Flutter-%2302569B.svg?style=for-the-badge&logo=Flutter&logoColor=white)](https://flutter.dev)
 [![Dart](https://img.shields.io/badge/dart-%230175C2.svg?style=for-the-badge&logo=dart&logoColor=white)](https://dart.dev)
