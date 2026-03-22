@@ -9,9 +9,9 @@ See: .planning/PROJECT.md (updated 2026-03-22)
 
 ## Milestone Progress
 
-- [/] Milestone 1: FlashMind MVP (20% complete)
+- [/] Milestone 1: FlashMind MVP (40% complete)
   - [x] Phase 1: Project Scaffold & Core Layer
-  - [ ] Phase 2: App Config & Styling
+  - [x] Phase 2: App Config & Styling
   - [ ] Phase 3: Home Feature
   - [ ] Phase 4: Manage Feature
   - [ ] Phase 5: Integration & Verification
